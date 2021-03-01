@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 1170px;
+  margin: 0 auto;
+  .toolbar {
+    width: 5%;
+    background: dodgerblue;
+  }
+  .workspace {
+    width: 100%;
+  }
+  .information_panel {
+    width: 20%;
+    background: darkseagreen;
+  }
+}
