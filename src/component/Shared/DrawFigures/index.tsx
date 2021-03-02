@@ -1,131 +1,69 @@
-import React, { Component } from "react";
+import React, {
+	FC,
+	useEffect,
+	useRef,
+} from "react";
+import { useSelector } from 'react-redux';
 import * as THREE from 'three';
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
+import {DragControls} from "three/examples/jsm/controls/DragControls";
+import {getFigures, getScene} from "../../../store/core/selector";
 
 import styles from './styles.module.scss';
 
-class AppTest extends Component {
-	private mount: any;
-	private scene: any;
-	private camera: any;
-	private renderer: any;
-	private controls: any;
-	private cube: any;
-	private torus: any;
-	private requestID: any;
-	private cone: any;
+const DrawFigures: FC = () => {
+	const figures: any = useSelector(getFigures) || [];
+	const scene: any = useSelector(getScene);
+	const mount: any = useRef(null);
+	let renderer: any = undefined;
+	let camera: any = undefined;
+	// let requestID: any = undefined;
 
-	componentDidMount() {
-		//mount-div
-		this.sceneSetup();
-		this.addCube();
-		this.addCircle();
-		this.addConus();
-		this.startAnimationLoop();
+	const randomInteger = (min: number, max: number) => {
+		let rand = min + Math.random() * (max + 1 - min);
+		return Math.floor(rand);
 	}
 
-	sceneSetup = () => {
-		const width = this.mount.clientWidth;
-		const height = this.mount.clientHeight;
+	useEffect(()=> {
+		sceneSetup();
+		addCube();
+		startAnimationLoop();
+	}, [figures])
 
-		this.scene = new THREE.Scene();
-		this.camera = new THREE.PerspectiveCamera(70, width/height);
-		this.camera.position.z = 100;
-		this.controls = new OrbitControls( this.camera, this.mount );
-		this.renderer = new THREE.WebGLRenderer({antialias:true});
-		this.renderer.setSize( width, height );
-		this.renderer.setClearColor(0xFFFFFF, 1);
-		this.mount.appendChild( this.renderer.domElement );
+	const sceneSetup = () => {
+		const width = mount.current.clientWidth;
+		const height = mount.current.clientHeight;
+		camera = new THREE.PerspectiveCamera(75, width/height);
+		camera.position.z = 10;
+		renderer = new THREE.WebGLRenderer({antialias:true});
+		renderer.setSize( width, height );
+		renderer.setClearColor(0xFFFFFF, 1);
+		mount.current.appendChild( renderer.domElement );
 	};
 
-	addCube = () => {
-		const boxGeometry = new THREE.BoxGeometry(10, 10, 10);
-		const basicMaterial = new THREE.MeshBasicMaterial({color: 0x5B5B5B});
-		this.cube = new THREE.Mesh(boxGeometry, basicMaterial);
-		this.scene.add(this.cube);
+	const addCube = () => {
+		if (figures.length > 0) {
+			let count = -5;
+			for (let i = 0; i < figures.length; ++i) {
+				figures[i].position.x = count;
+				count += 2;
+			}
+			figures.forEach((c: any) => scene.add(c))
+		}
 	};
 
-	addCircle = () => {
-		const torusGeometry = new THREE.SphereGeometry( 5, 16, 16 );
-		const material = new THREE.MeshBasicMaterial( {color: 0x5B5B5B} );
-		this.torus = new THREE.Mesh(torusGeometry, material);
-		this.scene.add(this.torus);
-	}
-
-	addConus = () => {
-		const geometry = new THREE.ConeGeometry( 5, 20, 32 );
-		const material = new THREE.MeshBasicMaterial( {color: 0x5B5B5B} );
-		this.cone = new THREE.Mesh( geometry, material );
-		this.scene.add( this.cone );
-	}
-
-	startAnimationLoop = () => {
-		this.cube.position.x = -25;
-		this.torus.position.x = 25;
-		this.renderer.render( this.scene, this.camera );
-		this.requestID = window.requestAnimationFrame(this.startAnimationLoop);
+	const startAnimationLoop = () => {
+		if (figures.length > 0 && scene) {
+			const controls = new DragControls(figures, camera, mount.current);
+			const animate = function () {
+				window.requestAnimationFrame(animate)
+				// figures.forEach((c: any, i: any) => figures[i].rotation.x += 0.015)
+				renderer.render( scene, camera );
+			};
+			animate()
+		}
 	};
 
-	render() {
-		return <div className={styles.main} ref={ref => (this.mount = ref)} />;
-	}
+	return <div className={styles.main} ref={mount}/>;
 }
 
-export default AppTest;
-
-// const DrawFigures: FC = () => {
-//
-// 	const [mount, setMount] = useState();
-//
-// 	useEffect(()=> {
-// 		sceneSetup();
-// 		addCube();
-// 		addConus();
-// 		addCircle();
-// 		startAnimationLoop();
-// 	}, [])
-//
-// 	const sceneSetup = () => {
-// 		const width = this.mount.clientWidth;
-// 		const height = this.mount.clientHeight;
-//
-// 		const scene = new THREE.Scene();
-// 		const camera = new THREE.PerspectiveCamera(70, width/height);
-// 		camera.position.z = 50;
-// 		const controls = new OrbitControls( this.camera, this.mount );
-// 		const renderer = new THREE.WebGLRenderer({antialias:true});
-// 		renderer.setSize( width, height );
-// 		renderer.setClearColor(0xFFFFFF, 1);
-// 		this.mount.appendChild( this.renderer.domElement );
-// 	};
-//
-// 	const addCube = () => {
-// 		const boxGeometry = new THREE.BoxGeometry(10, 10, 10);
-// 		const basicMaterial = new THREE.MeshBasicMaterial({color: 0x5B5B5B});
-// 		const cube = new THREE.Mesh(boxGeometry, basicMaterial);
-// 		scene.add(this.cube);
-// 	};
-//
-// 	const addCircle = () => {
-// 		const torusGeometry = new THREE.SphereGeometry( 5, 16, 16 );
-// 		const material = new THREE.MeshBasicMaterial( {color: 0x5B5B5B} );
-// 		const torus = new THREE.Mesh(torusGeometry, material);
-// 		scene.add(this.torus);
-// 	}
-//
-// 	const addConus = () => {
-// 		const geometry = new THREE.ConeGeometry( 5, 20, 32 );
-// 		const material = new THREE.MeshBasicMaterial( {color: 0x5B5B5B} );
-// 		const cone = new THREE.Mesh( geometry, material );
-// 		scene.add( cone );
-// 	}
-//
-// 	const startAnimationLoop = () => {
-// 		cube.position.x = -25;
-// 		torus.position.x = 25;
-// 		renderer.render( this.scene, this.camera );
-// 		const requestID = window.requestAnimationFrame(this.startAnimationLoop);
-// 	};
-//
-// 	return <div style={style} ref={ref => (this.mount = ref)} />;
-// }
+export default DrawFigures;

@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.16",
     "@types/three": "^0.125.3",
     "react-redux": "^7.2.2",
     "reselect": "^4.0.0"
