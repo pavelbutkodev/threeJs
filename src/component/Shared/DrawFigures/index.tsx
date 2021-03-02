@@ -3,7 +3,7 @@ import React, {
 	useEffect,
 	useRef,
 } from "react";
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as THREE from 'three';
 import {DragControls} from "three/examples/jsm/controls/DragControls";
 
@@ -12,19 +12,19 @@ import {
 	getScene,
 	getMove,
 } from "../../../store/core/selector";
+import {selectFigure} from "../../../store/core/actions";
 
 import styles from './styles.module.scss';
 
 const DrawFigures: FC = () => {
+	const dispatch = useDispatch();
 	const figures: any = useSelector(getFigures) || [];
 	const isMove: any = useSelector(getMove);
 
 	const scene: any = useSelector(getScene);
 	const mount: any = useRef(null);
-	console.log('===>figures', figures);
 	let renderer: any = undefined;
 	let camera: any = undefined;
-	// let requestID: any = undefined;
 
 	useEffect(()=> {
 		sceneSetup();
@@ -60,9 +60,8 @@ const DrawFigures: FC = () => {
 		if (scene) {
 			const controls = new DragControls(figures, camera, mount.current);
 			controls.addEventListener( 'dragstart', function ( event ) {
-				event.object.material.emissive.set( 0xaaaaaa );
-				console.log('===>event.object', event.object);
-			} );
+				dispatch(selectFigure(event.object));
+			});
 
 			const animate = function () {
 				window.requestAnimationFrame(animate)

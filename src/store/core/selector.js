@@ -12,4 +12,6 @@ export const getMove = createSelector(selectState, (state) => state.isMove);
 
 export const getRotate = createSelector(selectState, (state) => state.isMove);
 
+export const getSelectFigure = createSelector(selectState, (state) => state.selectFigure);
+
 

@@ -4,7 +4,9 @@ import {
   ADD_CUBES,
   ADD_CIRCLE,
   ADD_TRIANGLE,
-  IS_MOVE, IS_ROTATE,
+  IS_MOVE,
+  IS_ROTATE,
+  SELECT_FIGURE,
 } from '../../constants/actionTypes';
 import * as THREE from "three";
 
@@ -43,6 +45,7 @@ const INITIAL_STATE = {
   scene: new THREE.Scene(),
   isMove: false,
   isRotate: false,
+  selectFigure: {},
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -77,6 +80,10 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case IS_ROTATE:
       return {
         ...state, isMove: !state.isRotate,
+      };
+    case SELECT_FIGURE:
+      return {
+        ...state, selectFigure: payload,
       };
     default:
       return {

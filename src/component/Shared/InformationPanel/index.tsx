@@ -2,6 +2,9 @@ import React, {
 	FC,
 } from 'react';
 
+import {useSelector} from "react-redux";
+import {getSelectFigure} from "../../../store/core/selector";
+
 import styles from './styles.module.scss';
 
 // import {
@@ -17,6 +20,8 @@ const defaultState = {
 }
 
 const InformationPanel: FC = () => {
+	const selectFigure = useSelector(getSelectFigure);
+	console.log('===>selectFigure', selectFigure);
 	return (
 		<div className={styles.container}>
 			<p>Polygon type: <span>{defaultState.type}</span></p>

@@ -6,6 +6,7 @@ import {
   ADD_TRIANGLE,
   IS_MOVE,
   IS_ROTATE,
+  SELECT_FIGURE,
 } from '../../constants/actionTypes';
 
 
@@ -35,4 +36,9 @@ export const changeMoveFlag = () => ({
 
 export const changeRotateFlag = () => ({
   type: IS_ROTATE,
+});
+
+export const selectFigure = (figure) => ({
+  type: SELECT_FIGURE,
+  payload: figure,
 });
