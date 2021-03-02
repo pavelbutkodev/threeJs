@@ -8,4 +8,8 @@ export const getFigures = createSelector(selectState, (state) => state.figures);
 
 export const getScene = createSelector(selectState, (state) => state.scene);
 
+export const getMove = createSelector(selectState, (state) => state.isMove);
+
+export const getRotate = createSelector(selectState, (state) => state.isMove);
+
 

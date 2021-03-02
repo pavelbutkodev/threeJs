@@ -3,3 +3,5 @@ export const LOADING_FALSE = 'LOADING_FALSE';
 export const ADD_CUBES = 'ADD_CUBES';
 export const ADD_CIRCLE = 'ADD_CIRCLE';
 export const ADD_TRIANGLE = 'ADD_TRIANGLE';
+export const IS_MOVE = 'IS_MOVE';
+export const IS_ROTATE = 'IS_ROTATE';

@@ -4,19 +4,45 @@ import {
   ADD_CUBES,
   ADD_CIRCLE,
   ADD_TRIANGLE,
+  IS_MOVE, IS_ROTATE,
 } from '../../constants/actionTypes';
 import * as THREE from "three";
 
-const geometryBox = new THREE.BoxGeometry()
-const geometryCircle = new THREE.SphereGeometry()
-const geometryTriangle = new THREE.ConeGeometry()
-const material = new THREE.MeshPhongMaterial({ color: 0x0000ff, transparent: true })
+//square
+const square = new THREE.Shape();
+square.moveTo(2, 2);
+square.lineTo(2, -2);
+square.lineTo(-2, -2);
+square.lineTo(-2, 2);
+const squareBox = new THREE.ShapeGeometry(square);
+
+//circle
+const x = 0;
+const y = 0;
+const radius = 2;
+const circle = new THREE.Shape();
+circle.absarc(x, y, radius);
+const geometryCircle = new THREE.ShapeGeometry(circle, 50);
+
+//triangle
+const triangle = new THREE.Shape();
+triangle.moveTo(0, 0);
+triangle.lineTo(2, -2);
+triangle.lineTo(-2, -2);
+triangle.lineTo(-2, 2);
+const geometryTriangle = new THREE.ShapeGeometry(triangle);
+
+
+//material
+const material = new THREE.MeshPhongMaterial({ emissive: 0x727272 })
 
 const INITIAL_STATE = {
   loading: false,
   //max-cubes-18
-  figures: [new THREE.Mesh(geometryBox, material)],
+  figures: [],
   scene: new THREE.Scene(),
+  isMove: false,
+  isRotate: false,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -32,7 +58,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case ADD_CUBES:
       return {
         ...state,
-        figures: state.figures.concat([new THREE.Mesh(geometryBox, material)]),
+        figures: state.figures.concat([new THREE.Mesh(squareBox, material)]),
       };
     case ADD_CIRCLE:
       return {
@@ -43,6 +69,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         figures: state.figures.concat([new THREE.Mesh(geometryTriangle, material)]),
+      };
+    case IS_MOVE:
+      return {
+        ...state, isMove: !state.isMove,
+      };
+    case IS_ROTATE:
+      return {
+        ...state, isMove: !state.isRotate,
       };
     default:
       return {

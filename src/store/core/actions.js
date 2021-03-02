@@ -4,6 +4,8 @@ import {
   ADD_CUBES,
   ADD_CIRCLE,
   ADD_TRIANGLE,
+  IS_MOVE,
+  IS_ROTATE,
 } from '../../constants/actionTypes';
 
 
@@ -25,4 +27,12 @@ export const addCircle = () => ({
 
 export const addTriangle = () => ({
   type: ADD_TRIANGLE,
+});
+
+export const changeMoveFlag = () => ({
+  type: IS_MOVE,
+});
+
+export const changeRotateFlag = () => ({
+  type: IS_ROTATE,
 });
