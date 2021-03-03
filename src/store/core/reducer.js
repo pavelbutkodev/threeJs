@@ -7,6 +7,7 @@ import {
   IS_MOVE,
   IS_ROTATE,
   SELECT_FIGURE,
+  IS_CURSOR,
 } from '../../constants/actionTypes';
 import * as THREE from "three";
 
@@ -32,20 +33,20 @@ triangle.moveTo(0, 0);
 triangle.lineTo(2, -2);
 triangle.lineTo(-2, -2);
 triangle.lineTo(-2, 2);
-const geometryTriangle = new THREE.ShapeGeometry(triangle);
+const geometryTriangle = new THREE.ShapeGeometry(triangle, 11);
 
 
 //material
-const material = new THREE.MeshPhongMaterial({ emissive: 0x727272 })
+const material = new THREE.MeshPhongMaterial({ emissive: 'rgb(0, 0, 0)' })
 
 const INITIAL_STATE = {
   loading: false,
-  //max-cubes-18
   figures: [],
   scene: new THREE.Scene(),
   isMove: false,
   isRotate: false,
-  selectFigure: {},
+  isCursor: false,
+  selectFigure: null,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -79,7 +80,11 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       };
     case IS_ROTATE:
       return {
-        ...state, isMove: !state.isRotate,
+        ...state, isRotate: !state.isRotate,
+      };
+    case IS_CURSOR:
+      return {
+        ...state, isCursor: !state.isCursor,
       };
     case SELECT_FIGURE:
       return {

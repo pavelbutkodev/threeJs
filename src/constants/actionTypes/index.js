@@ -5,4 +5,5 @@ export const ADD_CIRCLE = 'ADD_CIRCLE';
 export const ADD_TRIANGLE = 'ADD_TRIANGLE';
 export const IS_MOVE = 'IS_MOVE';
 export const IS_ROTATE = 'IS_ROTATE';
+export const IS_CURSOR = 'IS_CURSOR';
 export const SELECT_FIGURE = 'SELECT_FIGURE';

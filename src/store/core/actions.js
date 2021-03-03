@@ -7,6 +7,7 @@ import {
   IS_MOVE,
   IS_ROTATE,
   SELECT_FIGURE,
+  IS_CURSOR,
 } from '../../constants/actionTypes';
 
 
@@ -38,7 +39,12 @@ export const changeRotateFlag = () => ({
   type: IS_ROTATE,
 });
 
+export const changeCursorFlag = () => ({
+  type: IS_CURSOR,
+});
+
 export const selectFigure = (figure) => ({
   type: SELECT_FIGURE,
   payload: figure,
 });
+

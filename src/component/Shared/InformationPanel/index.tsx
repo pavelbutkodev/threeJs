@@ -7,29 +7,42 @@ import {getSelectFigure} from "../../../store/core/selector";
 
 import styles from './styles.module.scss';
 
-// import {
-// 	IInformationFigure
-// } from "./types";
-
-const defaultState = {
-	type: 'Circle',
-	radius: '20px',
-	position: 'x20 y20',
-	rotation: '20deg',
-	color: 'red',
-}
 
 const InformationPanel: FC = () => {
 	const selectFigure = useSelector(getSelectFigure);
-	console.log('===>selectFigure', selectFigure);
+	if (selectFigure) {
+		return (
+			<div className={selectFigure ? styles.container + ' ' + styles.active : styles.container}>
+				<p>Polygon type:
+							{
+								selectFigure.geometry.parameters.curveSegments === 12
+								? <span>Square</span>
+								: selectFigure.geometry.parameters.curveSegments === 50
+								? <span>Circle</span>
+								: selectFigure.geometry.parameters.curveSegments === 11
+								? <span>Triangle</span> :
+									''}
+				</p>
+				<p>Position:
+					<span>x: {selectFigure.rotation._x}</span>
+					<span>y: {selectFigure.rotation._y}</span>
+					<span>z: {selectFigure.rotation._z}</span>
+				</p>
+				<p>Rotation:
+					<span>x: {selectFigure.position.x.toFixed(0)}</span>
+					<span>y: {selectFigure.position.y.toFixed(0)}</span>
+					<span>z: {selectFigure.position.z.toFixed(0)}</span>
+				</p>
+				<p>Color:
+					<span>r: {selectFigure.material.emissive.r.toFixed(2)}</span>
+					<span>g: {selectFigure.material.emissive.g.toFixed(2)}</span>
+					<span>b: {selectFigure.material.emissive.b.toFixed(2)}</span>
+				</p>
+			</div>
+		);
+	}
 	return (
-		<div className={styles.container}>
-			<p>Polygon type: <span>{defaultState.type}</span></p>
-			<p>Radius: <span>{defaultState.radius}</span></p>
-			<p>Position: <span>{defaultState.position}</span></p>
-			<p>Rotation: <span>{defaultState.rotation}</span></p>
-			<p>Color: <span>{defaultState.color}</span></p>
-		</div>
+		<div className={styles.container} />
 	);
 }
 

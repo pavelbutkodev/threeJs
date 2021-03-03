@@ -1,7 +1,7 @@
 import React, {
 	FC,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {
 	addCubes,
@@ -9,7 +9,9 @@ import {
 	addTriangle,
 	changeMoveFlag,
 	changeRotateFlag,
+	changeCursorFlag,
 } from "../../../store/core/actions";
+import {getCursor, getFigures} from "../../../store/core/selector";
 
 import styles from './styles.module.scss';
 import cursor from '../../../assets/image/cursor.png';
@@ -21,17 +23,19 @@ import triangle from '../../../assets/image/triangle.png';
 
 const Toolbar: FC = () => {
 	const dispatch = useDispatch();
-	const addToSquare = () => {
-		dispatch(addCubes());
-	}
+	const figures = useSelector(getFigures);
 
-	const addToCircle = () => {
-		dispatch(addCircle());
-	}
+		const addToSquare = () => {
+			if (figures.length < 6) dispatch(addCubes())
+		}
 
-	const addToTriangle = () => {
-		dispatch(addTriangle());
-	}
+		const addToCircle = () => {
+			if (figures.length < 6) dispatch(addCircle());
+		}
+
+		const addToTriangle = () => {
+			if (figures.length < 6) dispatch(addTriangle());
+		}	
 
 	const isMove = () => {
 		dispatch(changeMoveFlag());
@@ -39,6 +43,10 @@ const Toolbar: FC = () => {
 
 	const isRotate = () => {
 		dispatch(changeRotateFlag());
+	}
+
+	const isCursor = () => {
+		dispatch(changeCursorFlag());
 	}
 
 	return (
@@ -49,6 +57,7 @@ const Toolbar: FC = () => {
 						className={styles.img}
 						src={cursor}
 						alt="cursor"
+						onClick={isCursor}
 					/>
 				</li>
 				<li>
@@ -64,6 +73,7 @@ const Toolbar: FC = () => {
 						className={styles.img}
 						src={reload}
 						alt="reload"
+						onClick={isRotate}
 					/>
 				</li>
 			</ul>

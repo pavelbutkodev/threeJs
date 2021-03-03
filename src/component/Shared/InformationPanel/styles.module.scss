@@ -4,18 +4,26 @@
 
 .container {
   background: darkseagreen;
+  position: absolute;
   height: 100%;
-
+  transition: 0.8s;
+  right: -100%;
   font-size: 14px;
-  padding-top: 20px;
-  padding-left: 20px;
+  padding: 20px;
+
   p {
     margin-top: 10px;
     font-weight: 300;
 
     span {
+      margin: 10px 0;
+      display: block;
       font-weight: 600;
-      margin-left: 10px;
     }
   }
+}
+
+.active {
+  right: 0;
+  transition: .8s;
 }
