@@ -23,15 +23,13 @@ const InformationPanel: FC = () => {
 								? <span>Triangle</span> :
 									''}
 				</p>
-				<p>Position:
-					<span>x: {selectFigure.rotation._x}</span>
-					<span>y: {selectFigure.rotation._y}</span>
+				<p>Rotation:
 					<span>z: {selectFigure.rotation._z}</span>
 				</p>
-				<p>Rotation:
-					<span>x: {selectFigure.position.x.toFixed(0)}</span>
-					<span>y: {selectFigure.position.y.toFixed(0)}</span>
-					<span>z: {selectFigure.position.z.toFixed(0)}</span>
+				<p>Position:
+					<span>x: {selectFigure.position.x}</span>
+					<span>y: {selectFigure.position.y}</span>
+					<span>z: {selectFigure.position.z}</span>
 				</p>
 				<p>Color:
 					<span>r: {selectFigure.material.emissive.r.toFixed(2)}</span>

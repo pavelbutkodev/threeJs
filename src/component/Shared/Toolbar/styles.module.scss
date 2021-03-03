@@ -25,9 +25,13 @@
       width: 35px;
       height: 35px;
       margin-bottom: 10px;
-      .img {
+      .icon {
         width: 25px;
         height: 25px;
+        transition: 0.8s;
+      }
+      .active {
+        transform: rotate(-720deg);
       }
     }
   }
