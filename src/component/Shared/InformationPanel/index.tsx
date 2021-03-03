@@ -24,12 +24,12 @@ const InformationPanel: FC = () => {
 									''}
 				</p>
 				<p>Rotation:
-					<span>z: {selectFigure.rotation._z}</span>
+					<span>z: {selectFigure.rotation._z.toFixed(2)}</span>
 				</p>
 				<p>Position:
-					<span>x: {selectFigure.position.x}</span>
-					<span>y: {selectFigure.position.y}</span>
-					<span>z: {selectFigure.position.z}</span>
+					<span>x: {selectFigure.position.x.toFixed(2)}</span>
+					<span>y: {selectFigure.position.y.toFixed(2)}</span>
+					<span>z: {selectFigure.position.z.toFixed(2)}</span>
 				</p>
 				<p>Color:
 					<span>r: {selectFigure.material.emissive.r.toFixed(2)}</span>
