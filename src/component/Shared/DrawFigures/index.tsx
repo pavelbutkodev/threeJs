@@ -26,7 +26,6 @@ const DrawFigures: FC = () => {
 	let camera: any = undefined;
 	const rotate: any = useSelector(getRotate);
 	const move: any = useSelector(getMove);
-	console.log('===>move', rotate);
 
 	useEffect(()=> {
 		sceneSetup();
