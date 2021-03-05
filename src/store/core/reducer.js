@@ -37,7 +37,7 @@ const geometryTriangle = new THREE.ShapeGeometry(triangle, 11);
 
 
 //material
-const material = new THREE.MeshPhongMaterial({ emissive: 'rgb(0, 0, 0)' })
+const material = new THREE.MeshPhongMaterial({ color: 0xff0000, transparent: true });
 
 const INITIAL_STATE = {
   loading: false,

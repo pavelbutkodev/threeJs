@@ -9,32 +9,31 @@ import styles from './styles.module.scss';
 
 
 const InformationPanel: FC = () => {
-	const selectFigure = useSelector(getSelectFigure);
-	if (selectFigure) {
+	const show = useSelector(getSelectFigure);
+	if (show && show.flag) {
 		return (
-			<div className={selectFigure ? styles.container + ' ' + styles.active : styles.container}>
+			<div className={show.figure ? styles.container + ' ' + styles.active : styles.container}>
 				<p>Polygon type:
 							{
-								selectFigure.geometry.parameters.curveSegments === 12
+								show.figure.geometry.parameters.curveSegments === 12
 								? <span>Square</span>
-								: selectFigure.geometry.parameters.curveSegments === 50
+								: show.figure.geometry.parameters.curveSegments === 50
 								? <span>Circle</span>
-								: selectFigure.geometry.parameters.curveSegments === 11
+								: show.figure.geometry.parameters.curveSegments === 11
 								? <span>Triangle</span> :
 									''}
 				</p>
 				<p>Rotation:
-					<span>z: {selectFigure.rotation._z.toFixed(2)}</span>
+					<span>z: {show.figure.rotation._z.toFixed(2)}</span>
 				</p>
 				<p>Position:
-					<span>x: {selectFigure.position.x.toFixed(2)}</span>
-					<span>y: {selectFigure.position.y.toFixed(2)}</span>
-					<span>z: {selectFigure.position.z.toFixed(2)}</span>
+					<span>x: {show.figure.position.x.toFixed(2)}</span>
+					<span>y: {show.figure.position.y.toFixed(2)}</span>
 				</p>
 				<p>Color:
-					<span>r: {selectFigure.material.emissive.r.toFixed(2)}</span>
-					<span>g: {selectFigure.material.emissive.g.toFixed(2)}</span>
-					<span>b: {selectFigure.material.emissive.b.toFixed(2)}</span>
+					<span>r: {show.figure.material.emissive.r.toFixed(0)}</span>
+					<span>g: {show.figure.material.emissive.g.toFixed(0)}</span>
+					<span>b: {show.figure.material.emissive.b.toFixed(0)}</span>
 				</p>
 			</div>
 		);

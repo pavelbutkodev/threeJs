@@ -29,17 +29,17 @@ const Toolbar: FC = () => {
 	const rotate = useSelector(getRotate);
 
 	const addToSquare = () => {
-		if (figures.length < 6) {
+		if (figures.length < 3) {
 			dispatch(addCubes())
 		}
 	}
 
 	const addToCircle = () => {
-		if (figures.length < 6) dispatch(addCircle());
+		if (figures.length < 3) dispatch(addCircle());
 	}
 
 	const addToTriangle = () => {
-		if (figures.length < 6) dispatch(addTriangle());
+		if (figures.length < 3) dispatch(addTriangle());
 	}
 
 
@@ -62,7 +62,9 @@ const Toolbar: FC = () => {
 	return (
 		<div className={styles.container}>
 			<ul>
-				<li>
+				<li
+					className={curs ?  styles.li + ' ' + styles.active_li : styles.li}
+				>
 					<img
 						className={curs ? styles.icon + ' ' + styles.active : styles.icon}
 						src={cursor}
@@ -70,7 +72,9 @@ const Toolbar: FC = () => {
 						onClick={isCursor}
 					/>
 				</li>
-				<li>
+				<li
+					className={move ? styles.active_li : ''}
+				>
 					<img
 						className={move ? styles.icon + ' ' + styles.active : styles.icon}
 						src={movetool}
@@ -78,7 +82,9 @@ const Toolbar: FC = () => {
 						onClick={isMove}
 					/>
 				</li>
-				<li>
+				<li
+					className={rotate ? styles.active_li : ''}
+				>
 					<img
 						className={rotate ? styles.icon + ' ' + styles.active : styles.icon}
 						src={reload}

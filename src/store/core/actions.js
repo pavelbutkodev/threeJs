@@ -43,8 +43,8 @@ export const changeCursorFlag = () => ({
   type: IS_CURSOR,
 });
 
-export const selectFigure = (figure) => ({
+export const selectFigure = (figure, flag) => ({
   type: SELECT_FIGURE,
-  payload: figure,
+  payload: {figure, flag},
 });
 

@@ -31,8 +31,12 @@
         transition: 0.8s;
       }
       .active {
-        transform: rotate(-720deg);
+        transform: rotate(360deg);
       }
+    }
+    .active_li {
+      background: #B1B1B1;
+      transform: scale(1.1);
     }
   }
 }
