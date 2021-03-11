@@ -9,7 +9,7 @@ import {
   SELECT_FIGURE,
   IS_CURSOR,
 } from '../../constants/actionTypes';
-
+import { Mesh } from "three";
 
 export const loadingTrue = () => ({
   type: LOADING_TRUE,
@@ -43,7 +43,7 @@ export const changeCursorFlag = () => ({
   type: IS_CURSOR,
 });
 
-export const selectFigure = (figure) => ({
+export const selectFigure = (figure: Mesh) => ({
   type: SELECT_FIGURE,
   payload: figure,
 });

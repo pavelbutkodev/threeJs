@@ -10,6 +10,7 @@ import {
   IS_CURSOR,
 } from '../../constants/actionTypes';
 import * as THREE from "three";
+import { ICreateFigure, IReducer } from "./types";
 
 //square
 const square = new THREE.Shape();
@@ -20,11 +21,11 @@ square.lineTo(-2, 2);
 const squareBox = new THREE.ShapeGeometry(square);
 
 //circle
-const x = 0;
+const x: number = 0;
 const y = 0;
 const radius = 2;
 const circle = new THREE.Shape();
-circle.absarc(x, y, radius);
+circle.absarc(x, y, radius, 1, 7, false);
 const geometryCircle = new THREE.ShapeGeometry(circle, 50);
 
 //triangle
@@ -35,9 +36,8 @@ triangle.lineTo(-2, -2);
 triangle.lineTo(-2, 2);
 const geometryTriangle = new THREE.ShapeGeometry(triangle, 11);
 
-
 //material
-const material = new THREE.MeshPhongMaterial({ emissive: 'rgb(0, 0, 0)' })
+const material = new THREE.MeshPhongMaterial({emissive: 'rgb(0, 0, 0)'})
 
 const INITIAL_STATE = {
   loading: false,
@@ -49,7 +49,11 @@ const INITIAL_STATE = {
   selectFigure: null,
 };
 
-export default (state = INITIAL_STATE, { type, payload }) => {
+const createFigure = ({figures, figure}: ICreateFigure) => {
+  return figures.concat([new THREE.Mesh(figure, material)])
+}
+
+const coreReducer = (state = INITIAL_STATE, {type, payload}: IReducer) => {
   switch (type) {
     case LOADING_TRUE:
       return {
@@ -62,17 +66,17 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case ADD_CUBES:
       return {
         ...state,
-        figures: state.figures.concat([new THREE.Mesh(squareBox, material)]),
+        figures: createFigure({figures: state.figures, figure: squareBox})
       };
     case ADD_CIRCLE:
       return {
         ...state,
-        figures: state.figures.concat([new THREE.Mesh(geometryCircle, material)]),
+        figures: createFigure({figures: state.figures, figure: geometryCircle})
       };
     case ADD_TRIANGLE:
       return {
         ...state,
-        figures: state.figures.concat([new THREE.Mesh(geometryTriangle, material)]),
+        figures: createFigure({figures: state.figures, figure: geometryTriangle})
       };
     case IS_MOVE:
       return {
@@ -96,3 +100,5 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       };
   }
 };
+
+export default coreReducer;

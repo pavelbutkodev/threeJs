@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// @ts-ignore
 import { Provider } from 'react-redux';
 import configureStore from './store/store';
 
@@ -11,7 +10,7 @@ import './index.css';
 
 ReactDOM.render(
   <Provider store={configureStore()}>
-    <App />
+    <App/>
   </Provider>,
   document.getElementById('root')
 );

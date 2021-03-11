@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import MainWindow from "./layout/MainWindow";
 
 const App: FC = () => {
   return (
-   <>
-    <MainWindow />
-   </>
+    <>
+      <MainWindow />
+    </>
   );
 }
 
